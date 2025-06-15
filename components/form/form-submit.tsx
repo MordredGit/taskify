@@ -18,7 +18,12 @@ export const FormSubmit = (props: FormSubmitProps) => {
   const { pending } = useFormStatus();
 
   return (
-    <Button type="submit" disabled={pending || props.disabled} {...props}>
+    <Button
+      type="submit"
+      variant={props.variant || "primary"}
+      disabled={pending || props.disabled}
+      {...props}
+    >
       {props.children}
     </Button>
   );

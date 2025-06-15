@@ -8,23 +8,49 @@ import { CreateBoard } from "./schema";
 import { InputType, ReturnType } from "./types";
 
 const handler = async (data: InputType): Promise<ReturnType> => {
-  const { userId } = await auth();
+  const { userId, orgId } = await auth();
 
-  if (!userId) {
+  if (!userId || !orgId) {
     return {
-      error: "Unauthorized",
+      error: ["Unauthorized"],
     };
   }
 
-  const { title } = data;
+  const { title, image } = data;
+
+  const [imageId, imageThumbUrl, imageFullUrl, imageLinkHTML, imageUserName] =
+    image.split("|");
+
+  if (
+    !imageId ||
+    !imageThumbUrl ||
+    !imageFullUrl ||
+    !imageLinkHTML ||
+    !imageUserName
+  ) {
+    return {
+      error: ["Missing fields. Failed to create board."],
+    };
+  }
+
   let board;
 
   try {
-    board = await db.board.create({ data: { title } });
+    board = await db.board.create({
+      data: {
+        title,
+        orgId,
+        imageId,
+        imageFullUrl,
+        imageLinkHTML,
+        imageThumbUrl,
+        imageUserName,
+      },
+    });
   } catch (error) {
     console.error(error);
     return {
-      error: "Failed to create",
+      error: ["Failed to create"],
     };
   }
 
