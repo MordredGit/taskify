@@ -1,4 +1,5 @@
 "use client";
+import { Loader2 } from "lucide-react";
 import { useFormStatus } from "react-dom";
 import { Button } from "../ui/button";
 
@@ -24,7 +25,13 @@ export const FormSubmit = (props: FormSubmitProps) => {
       disabled={pending || props.disabled}
       {...props}
     >
-      {props.children}
+      {pending ? (
+        <span>
+          <Loader2 className="h-4 w-4 animate-spin" />
+        </span>
+      ) : (
+        <span>{props.children}</span>
+      )}
     </Button>
   );
 };
