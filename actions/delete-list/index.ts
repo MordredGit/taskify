@@ -2,10 +2,10 @@
 
 import { createSafeAction } from "@/lib/create-safe-action";
 import { db } from "@/lib/db";
+import { List } from "@/lib/generated/prisma";
 import { auth } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
-import { DeleteBoard } from "./schema";
+import { DeleteList } from "./schema";
 import { InputType, ReturnType } from "./types";
 
 const handler = async (data: InputType): Promise<ReturnType> => {
@@ -16,22 +16,22 @@ const handler = async (data: InputType): Promise<ReturnType> => {
     };
   }
 
-  const { id } = data;
-
+  const { id, boardId } = data;
+  let list: List;
   try {
-    await db.board.delete({
-      where: { id, orgId },
+    list = await db.list.delete({
+      where: { id, boardId, board: { orgId } },
     });
   } catch (error) {
-    console.error("Delete Board failed because: ", error);
+    console.error("Delete List failed because: ", error);
     return {
       error: ["Failed to Delete"],
     };
   }
 
   // await new Promise((resolve) => setTimeout(resolve, 5000));
-  revalidatePath(`/organization/${id}`);
-  redirect(`/organization/${orgId}`);
+  revalidatePath(`/board/${boardId}`);
+  return { data: list };
 };
 
-export const deleteBoard = createSafeAction(DeleteBoard, handler);
+export const deleteList = createSafeAction(DeleteList, handler);
