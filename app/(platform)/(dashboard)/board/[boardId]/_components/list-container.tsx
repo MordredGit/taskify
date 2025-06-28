@@ -4,7 +4,12 @@ import { updateCardOrder } from "@/actions/update-card-order";
 import { updateListOrder } from "@/actions/update-list-order";
 import { useAction } from "@/hooks/use-action";
 import { ListWithCards } from "@/types";
-import { DragDropContext, Droppable, DropResult } from "@hello-pangea/dnd";
+import {
+  DragDropContext,
+  Droppable,
+  DropResult,
+  OnDragEndResponder,
+} from "@hello-pangea/dnd";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { ListForm } from "./list-form";
@@ -119,7 +124,7 @@ export const ListContainer = ({ data, boardId }: ListContainerProps) => {
   };
 
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
+    <DragDropContext onDragEnd={onDragEnd as OnDragEndResponder<string>}>
       <Droppable droppableId="lists" type="list" direction="horizontal">
         {(provided) => (
           <ol
