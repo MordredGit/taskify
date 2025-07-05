@@ -1,6 +1,6 @@
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { generateLogMessage } from "@/lib/generate-log-message";
-import { AuditLog } from "@/lib/generated/prisma";
+import { AuditLog } from "@prisma/client";
 import { format } from "date-fns";
 
 interface ActivityItemProps {

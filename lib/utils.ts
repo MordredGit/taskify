@@ -1,7 +1,7 @@
+import { ACTION, Board, Card, ENTITY_TYPE, List } from "@prisma/client";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { createAuditLog } from "./create-audit-log";
-import { ACTION, Board, Card, ENTITY_TYPE, List } from "./generated/prisma";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));

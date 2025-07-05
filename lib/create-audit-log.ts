@@ -1,7 +1,7 @@
 "use server";
 import { auth, currentUser } from "@clerk/nextjs/server";
+import { ACTION, ENTITY_TYPE } from "@prisma/client";
 import { db } from "./db";
-import { ACTION, ENTITY_TYPE } from "./generated/prisma";
 
 interface Props {
   entityId: string;

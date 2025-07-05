@@ -2,11 +2,11 @@
 
 import { createSafeAction } from "@/lib/create-safe-action";
 import { db } from "@/lib/db";
-import { ACTION, ENTITY_TYPE } from "@/lib/generated/prisma";
 import { decrementAvailableCount } from "@/lib/org-limits";
 import { checkSubscription } from "@/lib/subscription";
 import { addLog } from "@/lib/utils";
 import { auth } from "@clerk/nextjs/server";
+import { ACTION, ENTITY_TYPE } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { DeleteBoard } from "./schema";

@@ -1,5 +1,5 @@
 /* eslint no-var: 0 */
-import { PrismaClient } from "./generated/prisma";
+import { PrismaClient } from "@prisma/client";
 
 declare global {
   var prisma: PrismaClient | undefined;

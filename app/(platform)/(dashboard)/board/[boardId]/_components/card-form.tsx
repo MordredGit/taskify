@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { useAction } from "@/hooks/use-action";
 import { Plus, X } from "lucide-react";
 import { useParams } from "next/navigation";
-import { ComponentRef, forwardRef, useRef } from "react";
+import { ComponentRef, forwardRef, RefObject, useRef } from "react";
 import { toast } from "sonner";
 import { useEventListener, useOnClickOutside } from "usehooks-ts";
 

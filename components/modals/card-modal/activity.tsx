@@ -2,7 +2,7 @@
 
 import { ActivityItem } from "@/components/activity-item";
 import { Skeleton } from "@/components/ui/skeleton";
-import { AuditLog } from "@/lib/generated/prisma";
+import { AuditLog } from "@prisma/client";
 import { ActivityIcon } from "lucide-react";
 
 interface ActivityProps {

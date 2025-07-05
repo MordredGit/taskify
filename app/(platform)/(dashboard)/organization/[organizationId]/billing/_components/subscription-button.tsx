@@ -19,7 +19,11 @@ export const SubscriptionButton = ({ isPro }: SubscriptionButtonProps) => {
 
   const { onOpen } = useProModal();
   const onClick = () => {
-    isPro ? execute({}) : onOpen();
+    if (isPro) {
+      execute({});
+    } else {
+      onOpen();
+    }
   };
   return (
     <Button variant="primary" disabled={isLoading} onClick={onClick}>

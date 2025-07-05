@@ -7,9 +7,9 @@ import { absoluteUrl } from "@/lib/utils";
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
 import { StripeRedirect } from "./schema";
-import { InputType, ReturnType } from "./types";
+import { ReturnType } from "./types";
 
-const handler = async (data: InputType): Promise<ReturnType> => {
+const handler = async (): Promise<ReturnType> => {
   const { userId, orgId } = await auth();
   const user = await currentUser();
   if (!userId || !orgId || !user) {

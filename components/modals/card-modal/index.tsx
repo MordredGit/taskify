@@ -3,8 +3,8 @@
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { useCardModal } from "@/hooks/use-card-modal";
 import { fetcher } from "@/lib/fetcher";
-import { AuditLog } from "@/lib/generated/prisma";
 import { CardWithList } from "@/types";
+import { AuditLog } from "@prisma/client";
 import { useQuery } from "@tanstack/react-query";
 import { Actions } from "./actions";
 import { Activity } from "./activity";
