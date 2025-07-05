@@ -2,7 +2,8 @@
 
 import { createSafeAction } from "@/lib/create-safe-action";
 import { db } from "@/lib/db";
-import { List } from "@/lib/generated/prisma";
+import { ACTION, ENTITY_TYPE, List } from "@/lib/generated/prisma";
+import { addLog } from "@/lib/utils";
 import { auth } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
 import { CopyList } from "./schema";
@@ -63,6 +64,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
     };
   }
 
+  addLog({ entity: list, entityType: ENTITY_TYPE.LIST, action: ACTION.CREATE });
   // await new Promise((resolve) => setTimeout(resolve, 5000));
   revalidatePath(`/board/${boardId}`);
   return { data: list };

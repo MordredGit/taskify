@@ -2,7 +2,8 @@
 
 import { createSafeAction } from "@/lib/create-safe-action";
 import { db } from "@/lib/db";
-import { Card } from "@/lib/generated/prisma";
+import { ACTION, Card, ENTITY_TYPE } from "@/lib/generated/prisma";
+import { addLog } from "@/lib/utils";
 import { auth } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
 import { DeleteCard } from "./schema";
@@ -28,6 +29,12 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       error: ["Failed to Delete"],
     };
   }
+
+  addLog({
+    entity: card,
+    entityType: ENTITY_TYPE.CARD,
+    action: ACTION.DELETE,
+  });
 
   // await new Promise((resolve) => setTimeout(resolve, 5000));
   revalidatePath(`/board/${boardId}`);

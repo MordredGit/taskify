@@ -33,6 +33,12 @@ const handler = async (data: InputType): Promise<ReturnType> => {
     };
   }
 
+  // addLog({
+  //   entity: card,
+  //   entityType: ENTITY_TYPE.CARD,
+  //   action: ACTION.UPDATE,
+  // });
+
   revalidatePath(`/board/${boardId}`);
   return { data: cards };
 };

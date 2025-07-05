@@ -16,7 +16,6 @@ interface FormInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
   (props, ref) => {
     const { id, label, disabled, errors, className } = props;
-    if (!props.defaultValue) props.defaultValue = "";
     const { pending } = useFormStatus();
     return (
       <div className="space-y-2">
@@ -35,6 +34,7 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
             disabled={pending || disabled}
             className={cn("text-sm px-2 py-1 h-7", className)}
             aria-describedby={`${id}-error`}
+            defaultValue={props.defaultValue || ""}
             {...props}
           />
         </div>
