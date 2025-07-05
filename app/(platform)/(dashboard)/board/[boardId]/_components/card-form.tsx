@@ -45,7 +45,7 @@ export const CardForm = forwardRef<HTMLTextAreaElement, CardFormProps>(
       }
     };
     useEventListener("keydown", onKeyDown);
-    useOnClickOutside(formRef, disableEditing);
+    useOnClickOutside(formRef as RefObject<HTMLFormElement>, disableEditing);
     if (isEditing) {
       return (
         <form
