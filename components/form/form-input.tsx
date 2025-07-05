@@ -14,21 +14,9 @@ interface FormInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 }
 
 export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
-  (
-    {
-      id,
-      label,
-      type,
-      placeholder,
-      required,
-      disabled,
-      errors,
-      className,
-      defaultValue = "",
-      onBlur,
-    },
-    ref,
-  ) => {
+  (props, ref) => {
+    const { id, label, disabled, errors, className } = props;
+    if (!props.defaultValue) props.defaultValue = "";
     const { pending } = useFormStatus();
     return (
       <div className="space-y-2">
@@ -42,17 +30,12 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
             </Label>
           ) : null}
           <Input
-            onBlur={onBlur}
-            defaultValue={defaultValue}
             ref={ref}
-            required={required}
             name={id}
-            id={id}
-            placeholder={placeholder}
-            type={type}
             disabled={pending || disabled}
             className={cn("text-sm px-2 py-1 h-7", className)}
             aria-describedby={`${id}-error`}
+            {...props}
           />
         </div>
         <FormErrors id={id} errors={errors} />
