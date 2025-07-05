@@ -4,9 +4,9 @@ import { redirect } from "next/navigation";
 import { ListContainer } from "./_components/list-container";
 
 interface BoardIdPageProps {
-  params: {
+  params: Promise<{
     boardId: string;
-  };
+  }>;
 }
 
 const BoardIdPage = async ({ params }: BoardIdPageProps) => {
