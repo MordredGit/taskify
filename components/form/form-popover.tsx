@@ -1,6 +1,7 @@
 "use client";
 import { createBoard } from "@/actions/create-board";
 import { useAction } from "@/hooks/use-action";
+import { useProModal } from "@/hooks/use-pro-modal";
 import { X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { ComponentRef, useRef } from "react";
@@ -29,6 +30,7 @@ export const FormPopover = ({
   sideOffset,
   align,
 }: FormPopoverProps) => {
+  const { onOpen } = useProModal();
   const router = useRouter();
   const closeRef = useRef<ComponentRef<"button">>(null);
   const { execute, fieldErrors } = useAction(createBoard, {
@@ -39,6 +41,12 @@ export const FormPopover = ({
     },
     onError: (error) => {
       toast.error(error);
+      if (
+        error.at(0) ===
+        "You have reached your limit of free boards. Please upgrade to create more."
+      ) {
+        onOpen();
+      }
     },
   });
 

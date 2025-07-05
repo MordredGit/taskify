@@ -4,6 +4,7 @@ import { createSafeAction } from "@/lib/create-safe-action";
 import { db } from "@/lib/db";
 import { ACTION, ENTITY_TYPE } from "@/lib/generated/prisma";
 import { decrementAvailableCount } from "@/lib/org-limits";
+import { checkSubscription } from "@/lib/subscription";
 import { addLog } from "@/lib/utils";
 import { auth } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
@@ -19,6 +20,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
     };
   }
 
+  const isPro = await checkSubscription();
   const { id } = data;
   let board;
 
@@ -33,7 +35,9 @@ const handler = async (data: InputType): Promise<ReturnType> => {
     };
   }
 
-  await decrementAvailableCount();
+  if (!isPro) {
+    await decrementAvailableCount();
+  }
   addLog({
     entity: board,
     entityType: ENTITY_TYPE.BOARD,
